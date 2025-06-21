@@ -58,6 +58,7 @@ export default function InvitationPage() {
             }${photo.src}`}
             alt={photo.caption}
             fill
+            unoptimized
             className="absolute w-full h-full object-cover"
           />
           <div className="relative z-10 bg-black/50 text-white p-6 rounded-xl text-center">
@@ -91,6 +92,7 @@ export default function InvitationPage() {
               src={withPrefix('/map.jpg')}
               alt="aw"
               fill
+              unoptimized
               className="object-cover"
               sizes="100vw"
             ></Image>
