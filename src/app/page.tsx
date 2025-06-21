@@ -55,7 +55,7 @@ export default function InvitationPage() {
           <Image
             src={`${
               process.env.NODE_ENV === 'production' ? '/wedding_invitation' : ''
-            }/${photo.src}`}
+            }${photo.src}`}
             alt={photo.caption}
             fill
             className="absolute w-full h-full object-cover"
