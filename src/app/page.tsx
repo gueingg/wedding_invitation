@@ -2,7 +2,14 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+
 export default function InvitationPage() {
+  const withPrefix = (path: string) => {
+    const prefix =
+      process.env.NODE_ENV === 'production' ? '/wedding_invitation' : '';
+    return `${prefix}${path}`;
+  };
+
   const [isShort, setIsShort] = useState(false);
   const photos = [
     { src: '/photo1.jpg', caption: '박현규 & 신유진, 첫 인연' },
@@ -46,7 +53,9 @@ export default function InvitationPage() {
           }`}
         >
           <Image
-            src={photo.src}
+            src={`${
+              process.env.NODE_ENV === 'production' ? '/wedding_invitation' : ''
+            }/${photo.src}`}
             alt={photo.caption}
             fill
             className="absolute w-full h-full object-cover"
@@ -79,7 +88,7 @@ export default function InvitationPage() {
             }`}
           >
             <Image
-              src="/map.png"
+              src={withPrefix('/map.jpg')}
               alt="aw"
               fill
               className="object-cover"
