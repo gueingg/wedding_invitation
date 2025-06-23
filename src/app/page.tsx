@@ -52,7 +52,7 @@ export default function InvitationPage() {
   }, [current, photos.length]);
 
   return (
-    <main className="relative w-full h-screen overflow-hidden bg-gradient-to-b from-amber-50 to-white">
+    <main className="relative w-full min-h-[100dvh] overflow-hidden bg-gradient-to-b from-amber-50 to-white">
       {[...photos, { isInfo: true }].map((photo, idx) => (
         <div
           key={idx}
@@ -109,14 +109,20 @@ export default function InvitationPage() {
                     className="object-contain"
                   />
                 </div>
-                <div className="">
-                  <h1 className="text-xl font-bold text-#2b3f6c-100 mb-4 drop-shadow text-center">
+                <div className="pb-8">
+                  <h1
+                    className="text-xl font-bold mb-4 drop-shadow text-center"
+                    style={{ color: '#2b3f6c' }}
+                  >
                     함께가는 길
                   </h1>
-                  <p className="font-semibold text-lg text-#306eff-900 mb-2 text-center">
+                  <p
+                    className="font-semibold text-lg  mb-2 text-center"
+                    style={{ color: '#2b3f6c' }}
+                  >
                     국민은행 123-456-789012
                     <button
-                      className="ml-5 px-4 py-1 bg-amber-600 text-white rounded shadow hover:bg-amber-700 text-sm"
+                      className="ml-5 px-4 py-1 text-white rounded shadow text-sm bg-[#2b3f6c] hover:bg-[#204080]"
                       onClick={() =>
                         navigator.clipboard.writeText('123-456-789012')
                       }
