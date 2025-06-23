@@ -99,7 +99,7 @@ export default function InvitationPage() {
             </div>
           ) : (
             <>
-              <div className="w-full min-h-screen max-w-sm mx-auto">
+              <div className="w-full min-h-screen max-w-xs mx-auto">
                 <div className="aspect-[799/1440] relative overflow-hidden">
                   <Image
                     src={withPrefix('/photo4.jpg')}
@@ -109,20 +109,29 @@ export default function InvitationPage() {
                     className="object-contain"
                   />
                 </div>
-                <div className="pb-8">
+                <div className="flex-shrink-0 mx-auto max-w-xs w-full py-3">
                   <h1
-                    className="text-xl font-bold mb-4 drop-shadow text-center"
-                    style={{ color: '#2b3f6c' }}
+                    className="text-sm mb-4 text-center"
+                    style={{
+                      color: '#2b3f6c',
+                      fontFamily: "'Cafe24Font'",
+                      letterSpacing: '-0.02em',
+                    }}
                   >
                     함께가는 길
                   </h1>
                   <p
-                    className="font-semibold text-lg  mb-2 text-center"
-                    style={{ color: '#2b3f6c' }}
+                    className="font-semibold text-sm  mb-2 text-center"
+                    style={{
+                      color: '#2b3f6c',
+                      fontFamily:
+                        "'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif",
+                      letterSpacing: '-0.02em',
+                    }}
                   >
                     국민은행 123-456-789012
                     <button
-                      className="ml-5 px-4 py-1 text-white rounded shadow text-sm bg-[#2b3f6c] hover:bg-[#204080]"
+                      className="ml-3 px-4 py-1 text-white rounded shadow text-xs bg-[#2b3f6c] hover:bg-[#204080]"
                       onClick={() =>
                         navigator.clipboard.writeText('123-456-789012')
                       }
