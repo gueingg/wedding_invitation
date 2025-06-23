@@ -25,6 +25,32 @@ export default function InvitationPage() {
     return () => window.removeEventListener('wheel', onWheel);
   }, [current, photos.length]);
 
+  useEffect(() => {
+    let startY = 0;
+    let endY = 0;
+
+    const onTouchStart = (e: TouchEvent) => {
+      startY = e.touches[0].clientY;
+    };
+    const onTouchEnd = (e: TouchEvent) => {
+      endY = e.changedTouches[0].clientY;
+      if (startY - endY > 50 && current < photos.length) {
+        setCurrent((c) => Math.min(c + 1, photos.length));
+      }
+      if (endY - startY > 50 && current > 0) {
+        setCurrent((c) => Math.max(c - 1, 0));
+      }
+    };
+
+    window.addEventListener('touchstart', onTouchStart);
+    window.addEventListener('touchend', onTouchEnd);
+
+    return () => {
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [current, photos.length]);
+
   return (
     <main className="relative w-full h-screen overflow-hidden bg-gradient-to-b from-amber-50 to-white">
       {[...photos, { isInfo: true }].map((photo, idx) => (
