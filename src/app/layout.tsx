@@ -1,8 +1,20 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'Wedding Invitation',
-  description: '박현규 & 신유진 결혼식에 초대합니다.',
+  title: '박현규 & 신유진 결혼식에 초대합니다.',
+  description: '모바일청첩장 바로가기',
+  openGraph: {
+    title: '박현규 & 신유진 결혼식에 초대합니다.',
+    description: '모바일청첩장 바로가기',
+    images: [
+      {
+        url: '/photo1.jpg',
+        width: 800,
+        height: 600,
+        alt: '박현규 & 신유진 결혼식에 초대합니다.',
+      },
+    ],
+  },
 };
 
 export const viewport = {
