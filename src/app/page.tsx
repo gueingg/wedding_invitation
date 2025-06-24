@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export default function InvitationPage() {
   const withPrefix = (path: string) =>
@@ -14,42 +14,49 @@ export default function InvitationPage() {
 
   const [current, setCurrent] = useState(0);
 
-  // 키보드/휠/스와이프로 넘기기
+  // 슬라이드 이동 함수 (중복 방지)
+  const goTo = useCallback(
+    (idx: number) => setCurrent(Math.max(0, Math.min(idx, photos.length))),
+    [photos.length]
+  );
+
+  // 휠/키보드/스와이프 이벤트
   useEffect(() => {
     const onWheel = (e: WheelEvent) => {
-      if (e.deltaY > 0 && current < photos.length)
-        setCurrent((c) => Math.min(c + 1, photos.length));
-      if (e.deltaY < 0 && current > 0) setCurrent((c) => Math.max(c - 1, 0));
+      if (e.deltaY > 0 && current < photos.length) goTo(current + 1);
+      if (e.deltaY < 0 && current > 0) goTo(current - 1);
     };
-    window.addEventListener('wheel', onWheel, { passive: false });
-    return () => window.removeEventListener('wheel', onWheel);
-  }, [current, photos.length]);
-
-  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') goTo(current + 1);
+      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') goTo(current - 1);
+    };
     let startY = 0;
-    let endY = 0;
-
     const onTouchStart = (e: TouchEvent) => {
       startY = e.touches[0].clientY;
     };
     const onTouchEnd = (e: TouchEvent) => {
-      endY = e.changedTouches[0].clientY;
-      if (startY - endY > 50 && current < photos.length) {
-        setCurrent((c) => Math.min(c + 1, photos.length));
-      }
-      if (endY - startY > 50 && current > 0) {
-        setCurrent((c) => Math.max(c - 1, 0));
-      }
+      const endY = e.changedTouches[0].clientY;
+      if (startY - endY > 50 && current < photos.length) goTo(current + 1);
+      if (endY - startY > 50 && current > 0) goTo(current - 1);
     };
 
+    window.addEventListener('wheel', onWheel, { passive: false });
+    window.addEventListener('keydown', onKeyDown);
     window.addEventListener('touchstart', onTouchStart);
     window.addEventListener('touchend', onTouchEnd);
-
     return () => {
+      window.removeEventListener('wheel', onWheel);
+      window.removeEventListener('keydown', onKeyDown);
       window.removeEventListener('touchstart', onTouchStart);
       window.removeEventListener('touchend', onTouchEnd);
     };
-  }, [current, photos.length]);
+  }, [current, goTo, photos.length]);
+
+  // 복사 버튼 핸들러
+  const handleCopy = useCallback(() => {
+    navigator.clipboard.writeText('123-456-789012');
+    alert('계좌번호가 복사되었습니다.');
+  }, []);
 
   return (
     <main className="relative w-full min-h-[100dvh] overflow-hidden bg-gradient-to-b from-amber-50 to-white">
@@ -138,9 +145,10 @@ export default function InvitationPage() {
                   국민은행 123-456-789012 박노훈
                   <button
                     className="ml-3 px-4 py-1 text-white rounded shadow text-xs bg-[#2b3f6c] hover:bg-[#204080]"
-                    onClick={() =>
-                      navigator.clipboard.writeText('123-456-789012')
-                    }
+                    onClick={() => {
+                      navigator.clipboard.writeText('123-456-789012');
+                      alert('계좌번호가 복사되었습니다.');
+                    }}
                   >
                     복사
                   </button>
@@ -155,10 +163,12 @@ export default function InvitationPage() {
         <button
           className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/80 rounded-full p-2 shadow hover:bg-amber-100 transition z-50"
           onClick={() => {
-            console.log('다음, current:', current);
             setCurrent((c) => {
               const next = Math.min(c + 1, photos.length);
-              console.log('current:', next);
+              if (next === photos.length) {
+                // 마지막 페이지에 도달하면 스크롤을 맨 위로 이동
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
               return next;
             });
           }}
