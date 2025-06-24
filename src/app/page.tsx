@@ -52,12 +52,6 @@ export default function InvitationPage() {
     };
   }, [current, goTo, photos.length]);
 
-  // 복사 버튼 핸들러
-  const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText('123-456-789012');
-    alert('계좌번호가 복사되었습니다.');
-  }, []);
-
   return (
     <main className="relative w-full min-h-[100dvh] overflow-hidden bg-gradient-to-b from-amber-50 to-white">
       {[...photos, { isInfo: true }].map((photo, idx) => (
