@@ -98,59 +98,72 @@ export default function InvitationPage() {
               </div>
             </div>
           ) : (
-            <>
-              <div className="w-full min-h-screen max-w-xs mx-auto">
-                <div className="aspect-[799/1440] relative overflow-hidden">
-                  <Image
-                    src={withPrefix('/photo4.jpg')}
-                    alt="오시는 길"
-                    fill
-                    unoptimized
-                    className="object-contain"
-                  />
-                </div>
-                <div className="flex-shrink-0 mx-auto max-w-xs w-full py-3">
-                  <h1
-                    className="text-sm mb-4 text-center"
-                    style={{
-                      color: '#2b3f6c',
-                      fontFamily: "'Cafe24Font'",
-                      letterSpacing: '-0.02em',
-                    }}
-                  >
-                    함께가는 길
-                  </h1>
-                  <p
-                    className="font-semibold text-sm  mb-2 text-center"
-                    style={{
-                      color: '#2b3f6c',
-                      fontFamily:
-                        "'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif",
-                      letterSpacing: '-0.02em',
-                    }}
-                  >
-                    국민은행 123-456-789012
-                    <button
-                      className="ml-3 px-4 py-1 text-white rounded shadow text-xs bg-[#2b3f6c] hover:bg-[#204080]"
-                      onClick={() =>
-                        navigator.clipboard.writeText('123-456-789012')
-                      }
-                    >
-                      복사
-                    </button>
-                  </p>
-                </div>
+            <div className="w-full h-full flex flex-col items-center min-h-0">
+              <div
+                className="relative w-full max-w-lg mx-auto overflow-hidden flex-shrink"
+                style={{
+                  aspectRatio: '799/1400',
+                  maxHeight: '100vh', // 화면의 55%까지만 이미지가 차지
+                  minHeight: '120px',
+                }}
+              >
+                <Image
+                  src={withPrefix('/photo4.jpg')}
+                  alt="오시는 길"
+                  fill
+                  unoptimized
+                  className="object-contain"
+                />
               </div>
-            </>
+              <div className="w-full max-w-sm mx-auto py-5 flex-shrink-0">
+                <h1
+                  className="text-sm mb-4 text-center"
+                  style={{
+                    color: '#2b3f6c',
+                    fontFamily: "'Cafe24Font'",
+                    letterSpacing: '-0.02em',
+                  }}
+                >
+                  함께가는 길
+                </h1>
+                <p
+                  className="font-semibold text-sm  mb-2 text-center"
+                  style={{
+                    color: '#2b3f6c',
+                    fontFamily:
+                      "'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif",
+                    letterSpacing: '-0.02em',
+                  }}
+                >
+                  국민은행 123-456-789012 박노훈
+                  <button
+                    className="ml-3 px-4 py-1 text-white rounded shadow text-xs bg-[#2b3f6c] hover:bg-[#204080]"
+                    onClick={() =>
+                      navigator.clipboard.writeText('123-456-789012')
+                    }
+                  >
+                    복사
+                  </button>
+                </p>
+              </div>
+            </div>
           )}
         </div>
       ))}
       {/* 아래 화살표/버튼 등 네비게이션 */}
       {current < photos.length && (
         <button
-          className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/80 rounded-full p-2 shadow hover:bg-amber-100 transition"
-          onClick={() => setCurrent((c) => Math.min(c + 1, photos.length))}
+          className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/80 rounded-full p-2 shadow hover:bg-amber-100 transition z-50"
+          onClick={() => {
+            console.log('다음, current:', current);
+            setCurrent((c) => {
+              const next = Math.min(c + 1, photos.length);
+              console.log('current:', next);
+              return next;
+            });
+          }}
           aria-label="다음"
+          type="button"
         >
           <svg width={32} height={32} fill="none" viewBox="0 0 24 24">
             <path d="M12 16l-6-6h12l-6 6z" fill="#b45309" />
