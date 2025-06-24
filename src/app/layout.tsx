@@ -6,9 +6,11 @@ export const metadata = {
   openGraph: {
     title: '박현규 & 신유진 결혼식에 초대합니다.',
     description: '모바일청첩장 바로가기',
+    url: 'https://gueingg.github.io/wedding_invitation/',
+    siteName: '박현규 & 신유진 결혼식',
     images: [
       {
-        url: '/photo1.jpg',
+        url: 'https://gueingg.github.io/wedding_invitation/photo1.jpg',
         width: 800,
         height: 600,
         alt: '박현규 & 신유진 결혼식에 초대합니다.',
