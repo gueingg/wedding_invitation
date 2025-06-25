@@ -6,11 +6,7 @@ export default function InvitationPage() {
   const withPrefix = (path: string) =>
     process.env.NODE_ENV === 'production' ? `/wedding_invitation${path}` : path;
 
-  const photos = [
-    { src: '/photo5.jpg', caption: '' },
-    { src: '/photo6.jpg', caption: '' },
-    { src: '/photo3.jpg', caption: '2025년 8월 23일, 함께해 주세요' },
-  ];
+  const photos = [{ src: '/skin_info.png', caption: '' }];
 
   const [current, setCurrent] = useState(0);
 
@@ -75,30 +71,82 @@ export default function InvitationPage() {
           }}
         >
           {!('isInfo' in photo) ? (
+            // ...existing code...
             <div
-              className="relative bg-white rounded-2xl shadow-2xl border border-amber-200 p-0 sm:p-2 max-w-lg w-[90vw] mx-auto flex flex-col items-center
-              rotate-[-2deg] sm:rotate-[-1deg] hover:rotate-0 transition-transform duration-500"
+              id="scene_wrapper"
+              style={{
+                position: 'relative',
+                width: '100%',
+                maxWidth: 480,
+                margin: '0 auto',
+              }}
             >
-              <div className="relative w-full aspect-[4/5] overflow-hidden rounded-t-2xl">
+              {/* 슬라이드 이미지 */}
+              <div
+                id="scene_slider"
+                style={{
+                  position: 'relative',
+                  width: '100%',
+                  aspectRatio: '799/1400',
+                }}
+              >
                 <Image
-                  src={withPrefix(photo.src)}
-                  alt={photo.caption}
+                  className="scene_photo"
+                  src="https://cloud.bojagicard.com/scene/si/sinyu999/dfc45045965aac0b4fbc55c4cf41bd49.jpg"
+                  alt="슬라이드 이미지"
                   fill
+                  style={{
+                    filter: 'blur(0px)',
+                    objectFit: 'cover',
+                    display: 'block',
+                  }}
                   unoptimized
-                  className="object-cover"
-                  style={{ filter: 'brightness(0.96)' }}
+                  quality={100}
+                  priority
+                  sizes="(max-width: 480px) 100vw, 480px"
                 />
               </div>
-              <div className="w-full px-6 py-5 flex flex-col items-center">
-                <h2 className="text-xl sm:text-2xl font-bold text-amber-900 font-serif mb-2 drop-shadow-sm">
-                  {photo.caption}
-                </h2>
-              </div>
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-amber-700/70 text-xs">
-                {idx + 1} / {photos.length}
-              </div>
+              {/* 스킨 PNG (반투명 오버레이 등) */}
+              <Image
+                id="skin_png"
+                src={withPrefix('/103.png')}
+                alt="스킨 PNG"
+                fill
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  zIndex: 10,
+                  pointerEvents: 'none',
+                  objectFit: 'cover',
+                }}
+                priority={false}
+                unoptimized
+                quality={100}
+                sizes="(max-width: 480px) 100vw, 480px"
+              />
+              {/* 스킨 인포 (정보 오버레이) */}
+              <Image
+                id="skin_info"
+                src={withPrefix('/skin_info.png')}
+                alt="스킨 인포"
+                fill
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  zIndex: 20,
+                  pointerEvents: 'none',
+                  objectFit: 'cover',
+                }}
+                priority={false}
+                unoptimized
+                quality={100}
+                sizes="(max-width: 480px) 100vw, 480px"
+              />
             </div>
           ) : (
+            // ...existing code...
             <div className="w-full h-full flex flex-col items-center min-h-0">
               <div
                 className="relative w-full max-w-lg mx-auto overflow-hidden flex-shrink"
