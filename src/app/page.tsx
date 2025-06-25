@@ -7,8 +7,8 @@ export default function InvitationPage() {
     process.env.NODE_ENV === 'production' ? `/wedding_invitation${path}` : path;
 
   const photos = [
-    { src: '/photo1.jpg', caption: '박현규 & 신유진, 첫 인연' },
-    { src: '/photo2.jpg', caption: '함께한 시간, 사랑으로' },
+    { src: '/photo5.jpg', caption: '' },
+    { src: '/photo6.jpg', caption: '' },
     { src: '/photo3.jpg', caption: '2025년 8월 23일, 함께해 주세요' },
   ];
 
@@ -136,11 +136,11 @@ export default function InvitationPage() {
                     letterSpacing: '-0.02em',
                   }}
                 >
-                  국민은행 123-456-789012 박노훈
+                  농협 302-1103-3171-81 박노훈
                   <button
                     className="ml-3 px-4 py-1 text-white rounded shadow text-xs bg-[#2b3f6c] hover:bg-[#204080]"
                     onClick={() => {
-                      navigator.clipboard.writeText('123-456-789012');
+                      navigator.clipboard.writeText('302-1103-3171-81');
                       alert('계좌번호가 복사되었습니다.');
                     }}
                   >
