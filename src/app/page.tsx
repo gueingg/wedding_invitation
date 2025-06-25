@@ -140,7 +140,7 @@ export default function InvitationPage() {
                   <button
                     className="ml-3 px-4 py-1 text-white rounded shadow text-xs bg-[#2b3f6c] hover:bg-[#204080]"
                     onClick={() => {
-                      navigator.clipboard.writeText('302-1103-3171-81');
+                      navigator.clipboard.writeText('농협 3021103317181');
                       alert('계좌번호가 복사되었습니다.');
                     }}
                   >
