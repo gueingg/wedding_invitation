@@ -10,7 +10,7 @@ export const metadata = {
     siteName: '박현규 & 신유진 모바일청첩장',
     images: [
       {
-        url: 'https://gueingg.github.io/wedding_invitation/photo1.jpg',
+        url: 'https://cloud.bojagicard.com/scene/si/sinyu999/dfc45045965aac0b4fbc55c4cf41bd49.jpg',
         width: 800,
         height: 600,
         alt: '박현규 & 신유진 모바일청첩장.',
