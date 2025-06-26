@@ -98,7 +98,7 @@ export default function InvitationPage() {
                 >
                   {/* 위쪽 문구 */}
                   <div
-                    className="max-w-[300px] mx-auto text-ml text-center mb-2 w-full"
+                    className="max-w-[300px] mx-auto text-ml text-center mb-3 w-full"
                     dangerouslySetInnerHTML={{
                       __html: `
                       <div class="text-center space-y-1 leading-relaxed">
@@ -116,12 +116,11 @@ export default function InvitationPage() {
                   />
                   {/* 아래쪽 가족소개 */}
                   <div
-                    className="max-w-[300px] mx-auto text-base text-center space-y-1"
+                    className="max-w-[300px] mx-auto text-base text-center"
                     dangerouslySetInnerHTML={{
                       __html: `
                       <div>
-                        <p>아들 <span class="font-bold">박현규</span></p>
-                        <p>딸 <span class="font-bold">신유진</span></p>
+                        <p>아들 <span class="font-bold">박현규</span> 딸 <span class="font-bold">신유진</span></p>
                       </div>
                     `,
                     }}
