@@ -4,15 +4,15 @@ import { useCallback, useEffect, useState } from 'react';
 
 export default function InvitationPage() {
   const withPrefix = (path: string) =>
-    process.env.NODE_ENV === 'production' ? `${path}` : path;
+    process.env.NODE_ENV === 'production' ? `/wedding_invitation${path}` : path;
 
   const photos = [
     {
-      src: 'https://cloud.bojagicard.com/scene/si/sinyu999/dfc45045965aac0b4fbc55c4cf41bd49.jpg',
+      src: '',
       caption: '',
     },
     {
-      src: 'https://cloud.bojagicard.com/scene/si/sinyu999/skin_info.png?hash=1750815865',
+      src: '',
       caption: `${'<div class="text-center space-y-2 leading-relaxed"><p>함께할 날이 많아졌다는 사실에</p><p>하루하루가 고맙고 설렙니다.</p><p>친구처럼 서로를 아끼며 걸어가려 합니다.</p><p>저희의 진심 어린 시작,</p><p>얼마나 서로 좋아하는지,</p><p>오셔서 따뜻한 마음으로 봐주세요.</p></div><div class="mt-10 text-base text-center space-y-1"><p><span class="mx-1 text-gray-500">아들</span><span class="font-bold">박현규</span></p><p><span class="mx-1 text-gray-500">딸</span><span class="font-bold">신유진</span></p></div>'}`,
     },
   ];
@@ -135,7 +135,7 @@ export default function InvitationPage() {
                 >
                   <Image
                     className="object-cover blur-none block"
-                    src={withPrefix(photo.src)}
+                    src="https://cloud.bojagicard.com/scene/si/sinyu999/dfc45045965aac0b4fbc55c4cf41bd49.jpg"
                     alt="슬라이드 이미지"
                     fill
                     unoptimized
