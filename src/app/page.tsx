@@ -6,7 +6,16 @@ export default function InvitationPage() {
   const withPrefix = (path: string) =>
     process.env.NODE_ENV === 'production' ? `/wedding_invitation${path}` : path;
 
-  const photos = [{ src: '/skin_info.png', caption: '' }];
+  const photos = [
+    {
+      src: 'https://cloud.bojagicard.com/scene/si/sinyu999/dfc45045965aac0b4fbc55c4cf41bd49.jpg',
+      caption: '',
+    },
+    {
+      src: '/skin_info.png',
+      caption: `${'<div class="text-center space-y-2 leading-relaxed"><p>함께할 날이 많아졌다는 사실에</p><p>하루하루가 고맙고 설렙니다.</p><p>친구처럼 서로를 아끼며 걸어가려 합니다.</p><p>저희의 진심 어린 시작,</p><p>얼마나 서로 좋아하는지,</p><p>오셔서 따뜻한 마음으로 봐주세요.</p></div><div class="mt-10 text-base text-center space-y-1"><p><span class="mx-1 text-gray-500">아들</span><span class="font-bold">박현규</span></p><p><span class="mx-1 text-gray-500">딸</span><span class="font-bold">신유진</span></p></div>'}`,
+    },
+  ];
 
   const [current, setCurrent] = useState(0);
 
@@ -49,7 +58,7 @@ export default function InvitationPage() {
   }, [current, goTo, photos.length]);
 
   return (
-    <main className="relative w-full min-h-[100dvh] overflow-hidden bg-gradient-to-b from-amber-50 to-white">
+    <main className="relative w-full min-h-[100dvh] overflow-hidden">
       {[...photos, { isInfo: true }].map((photo, idx) => (
         <div
           key={idx}
@@ -81,45 +90,69 @@ export default function InvitationPage() {
                 margin: '0 auto',
               }}
             >
-              {/* 슬라이드 이미지 */}
-              <div
-                id="scene_slider"
-                style={{
-                  position: 'relative',
-                  width: '100%',
-                  aspectRatio: '799/1400',
-                }}
-              >
-                <Image
-                  className="scene_photo"
-                  src="https://cloud.bojagicard.com/scene/si/sinyu999/dfc45045965aac0b4fbc55c4cf41bd49.jpg"
-                  alt="슬라이드 이미지"
-                  fill
-                  style={{
-                    filter: 'blur(0px)',
-                    objectFit: 'cover',
-                    display: 'block',
-                  }}
-                  unoptimized
-                  quality={100}
-                  priority
-                  sizes="(max-width: 480px) 100vw, 480px"
-                />
-              </div>
+              {/* 캡션 표기 */}
+              {photo.caption && photo.caption.trim() !== '' ? (
+                <div
+                  id="scene_slider"
+                  className="relative w-full aspect-[799/1400] justify-center items-center flex flex-col pt-40"
+                >
+                  {/* 위쪽 문구 */}
+                  <div
+                    className="max-w-[300px] mx-auto text-ml text-center mb-4 w-full"
+                    dangerouslySetInnerHTML={{
+                      __html: `
+                      <div class="text-center space-y-2 leading-relaxed">
+                        <p>하나뿐인 현규와 유진이의</p>
+                        <p>소중한 날에 초대합니다.</p>
+                        <p>함께할 날이 많아졌다는 사실에</p>
+                        <p>하루하루가 고맙고 설렙니다.</p>
+                        <p>친구처럼 서로를 아끼며 걸어가려 합니다.</p>                                                                          
+                        <p>저희의 진심 어린 시작,</p>
+                        <p>얼마나 서로 좋아하는지,</p>
+                        <p>오셔서 따뜻한 마음으로 봐주세요.</p>
+                      </div>
+                    `,
+                    }}
+                  />
+                  {/* 아래쪽 가족소개 */}
+                  <div
+                    className="max-w-[300px] mx-auto text-base text-center space-y-1"
+                    dangerouslySetInnerHTML={{
+                      __html: `
+                      <div>
+                        <p>아들 <span class="font-bold">박현규</span></p>
+                        <p>딸 <span class="font-bold">신유진</span></p>
+                      </div>
+                    `,
+                    }}
+                  />
+                </div>
+              ) : (
+                // 슬라이드 이미지
+                <div
+                  id="scene_slider"
+                  className="relative w-full aspect-[799/1400] overflow-hidden"
+                >
+                  <Image
+                    className="object-cover blur-none block"
+                    src={withPrefix(photo.src)}
+                    alt="슬라이드 이미지"
+                    fill
+                    unoptimized
+                    quality={100}
+                    priority
+                    sizes="(max-width: 535px) 100vw, 795px"
+                  />
+                </div>
+              )}
+
               {/* 스킨 PNG (반투명 오버레이 등) */}
               <Image
+                className="absolute inset-0 object-cover"
                 id="skin_png"
                 src={withPrefix('/103.png')}
                 alt="스킨 PNG"
                 fill
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  zIndex: 10,
-                  pointerEvents: 'none',
-                  objectFit: 'cover',
-                }}
                 priority={false}
                 unoptimized
                 quality={100}
@@ -131,11 +164,8 @@ export default function InvitationPage() {
                 src={withPrefix('/skin_info.png')}
                 alt="스킨 인포"
                 fill
+                className="absolute inset-0 z-20"
                 style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  zIndex: 20,
                   pointerEvents: 'none',
                   objectFit: 'cover',
                 }}
@@ -152,7 +182,7 @@ export default function InvitationPage() {
                 className="relative w-full max-w-lg mx-auto overflow-hidden flex-shrink"
                 style={{
                   aspectRatio: '799/1400',
-                  maxHeight: '100vh', // 화면의 55%까지만 이미지가 차지
+                  maxHeight: '100vh',
                   minHeight: '120px',
                 }}
               >
@@ -184,11 +214,31 @@ export default function InvitationPage() {
                     letterSpacing: '-0.02em',
                   }}
                 >
-                  농협 302-1103-3171-81 박노훈
+                  신랑 혼주 : 농협 302-1103-3171-81 박노훈
                   <button
                     className="ml-3 px-4 py-1 text-white rounded shadow text-xs bg-[#2b3f6c] hover:bg-[#204080]"
                     onClick={() => {
                       navigator.clipboard.writeText('농협 3021103317181');
+                      alert('계좌번호가 복사되었습니다.');
+                    }}
+                  >
+                    복사
+                  </button>
+                </p>
+                <p
+                  className="font-semibold text-sm  mb-2 text-center"
+                  style={{
+                    color: '#2b3f6c',
+                    fontFamily:
+                      "'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif",
+                    letterSpacing: '-0.02em',
+                  }}
+                >
+                  신부 혼주: 우리 245-0348-0312-011 신현걸
+                  <button
+                    className="ml-3 px-4 py-1 text-white rounded shadow text-xs bg-[#2b3f6c] hover:bg-[#204080]"
+                    onClick={() => {
+                      navigator.clipboard.writeText('우리 2450348031211');
                       alert('계좌번호가 복사되었습니다.');
                     }}
                   >
