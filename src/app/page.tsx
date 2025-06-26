@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 export default function InvitationPage() {
   const withPrefix = (path: string) =>
-    process.env.NODE_ENV === 'production' ? `/wedding_invitation${path}` : path;
+    process.env.NODE_ENV === 'production' ? `${path}` : path;
 
   const photos = [
     {
@@ -12,7 +12,7 @@ export default function InvitationPage() {
       caption: '',
     },
     {
-      src: '/skin_info.png',
+      src: 'https://cloud.bojagicard.com/scene/si/sinyu999/skin_info.png?hash=1750815865',
       caption: `${'<div class="text-center space-y-2 leading-relaxed"><p>함께할 날이 많아졌다는 사실에</p><p>하루하루가 고맙고 설렙니다.</p><p>친구처럼 서로를 아끼며 걸어가려 합니다.</p><p>저희의 진심 어린 시작,</p><p>얼마나 서로 좋아하는지,</p><p>오셔서 따뜻한 마음으로 봐주세요.</p></div><div class="mt-10 text-base text-center space-y-1"><p><span class="mx-1 text-gray-500">아들</span><span class="font-bold">박현규</span></p><p><span class="mx-1 text-gray-500">딸</span><span class="font-bold">신유진</span></p></div>'}`,
     },
   ];
@@ -94,14 +94,14 @@ export default function InvitationPage() {
               {photo.caption && photo.caption.trim() !== '' ? (
                 <div
                   id="scene_slider"
-                  className="relative w-full aspect-[799/1400] justify-center items-center flex flex-col pt-40"
+                  className="relative w-full aspect-[799/1400] justify-center items-center flex flex-col pt-30"
                 >
                   {/* 위쪽 문구 */}
                   <div
-                    className="max-w-[300px] mx-auto text-ml text-center mb-4 w-full"
+                    className="max-w-[300px] mx-auto text-ml text-center mb-2 w-full"
                     dangerouslySetInnerHTML={{
                       __html: `
-                      <div class="text-center space-y-2 leading-relaxed">
+                      <div class="text-center space-y-1 leading-relaxed">
                         <p>하나뿐인 현규와 유진이의</p>
                         <p>소중한 날에 초대합니다.</p>
                         <p>함께할 날이 많아졌다는 사실에</p>
@@ -234,11 +234,11 @@ export default function InvitationPage() {
                     letterSpacing: '-0.02em',
                   }}
                 >
-                  신부 혼주: 우리 245-0348-0312-011 신현걸
+                  신부 혼주: 우리 245-0348-0312-001 신현걸
                   <button
                     className="ml-3 px-4 py-1 text-white rounded shadow text-xs bg-[#2b3f6c] hover:bg-[#204080]"
                     onClick={() => {
-                      navigator.clipboard.writeText('우리 2450348031211');
+                      navigator.clipboard.writeText('우리 24503480312001');
                       alert('계좌번호가 복사되었습니다.');
                     }}
                   >
