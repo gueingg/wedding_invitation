@@ -58,7 +58,7 @@ export default function InvitationPage() {
   }, [current, goTo, photos.length]);
 
   return (
-    <main className="relative w-full min-h-[100dvh] overflow-hidden">
+    <main className="relative w-full min-h-[100dvh] overflow-hidden bg-zinc-50">
       {[...photos, { isInfo: true }].map((photo, idx) => (
         <div
           key={idx}
