@@ -2,10 +2,10 @@
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import ImageZoom from './components/ImageSection';
+import { usePrefix } from './context/PrefixContext';
 
 export default function InvitationPage() {
-  const withPrefix = (path: string) =>
-    process.env.NODE_ENV === 'production' ? `/wedding_invitation${path}` : path;
+  const prefix = usePrefix();
 
   const photos = [
     {
@@ -150,7 +150,7 @@ export default function InvitationPage() {
               <Image
                 className="absolute inset-0 object-cover"
                 id="skin_png"
-                src={withPrefix('/103.png')}
+                src={`${prefix}('/103.png')`}
                 alt="스킨 PNG"
                 fill
                 priority={false}
@@ -161,7 +161,7 @@ export default function InvitationPage() {
               {/* 스킨 인포 (정보 오버레이) */}
               <Image
                 id="skin_info"
-                src={withPrefix('/skin_info.png')}
+                src={`${prefix}('/skin_info.png')`}
                 alt="스킨 인포"
                 fill
                 className="absolute inset-0 z-20"

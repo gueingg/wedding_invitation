@@ -3,9 +3,11 @@ import { Dialog } from '@headlessui/react';
 import { Search } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { usePrefix } from '../context/PrefixContext';
 
 export default function ImageZoom() {
   const [isOpen, setIsOpen] = useState(false);
+  const prefix = usePrefix();
 
   // ESC 키로 모달 닫기
   useEffect(() => {
@@ -23,7 +25,7 @@ export default function ImageZoom() {
         onClick={() => setIsOpen(true)}
       >
         <Image
-          src="/photo4.jpg"
+          src={`${prefix}/photo4.jpg`}
           alt="미리보기 이미지"
           fill
           className="object-contain"
@@ -48,7 +50,7 @@ export default function ImageZoom() {
         <div className="fixed inset-0 flex items-center justify-center p-4">
           <Dialog.Panel className="relative max-w-5xl w-full">
             <Image
-              src="/photo4.jpg"
+              src={`${prefix}/photo4.jpg`}
               alt="확대 이미지"
               width={1200}
               height={800}
