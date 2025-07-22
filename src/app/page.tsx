@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
+import ImageZoom from './components/ImageSection';
 
 export default function InvitationPage() {
   const withPrefix = (path: string) =>
@@ -185,13 +186,14 @@ export default function InvitationPage() {
                   minHeight: '120px',
                 }}
               >
-                <Image
+                <ImageZoom />
+                {/* <Image
                   src={withPrefix('/photo4.jpg')}
                   alt="오시는 길"
                   fill
                   unoptimized
                   className="object-contain"
-                />
+                /> */}
               </div>
               <div className="w-full max-w-sm mx-auto py-5 flex-shrink-0">
                 <h1

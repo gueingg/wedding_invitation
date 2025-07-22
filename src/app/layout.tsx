@@ -1,3 +1,4 @@
+import { PrefixProvider } from './context/PrefixContext';
 import './globals.css';
 
 export const metadata = {
@@ -33,7 +34,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body>{children}</body>
+      <body>
+        <PrefixProvider>{children}</PrefixProvider>
+      </body>
     </html>
   );
 }
