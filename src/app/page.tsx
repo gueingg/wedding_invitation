@@ -150,7 +150,7 @@ export default function InvitationPage() {
               <Image
                 className="absolute inset-0 object-cover"
                 id="skin_png"
-                src={`${prefix}('/103.png')`}
+                src={`${prefix}/103.png`}
                 alt="스킨 PNG"
                 fill
                 priority={false}
@@ -161,7 +161,7 @@ export default function InvitationPage() {
               {/* 스킨 인포 (정보 오버레이) */}
               <Image
                 id="skin_info"
-                src={`${prefix}('/skin_info.png')`}
+                src={`${prefix}/skin_info.png`}
                 alt="스킨 인포"
                 fill
                 className="absolute inset-0 z-20"
