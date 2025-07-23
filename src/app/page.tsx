@@ -2,19 +2,18 @@
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import ImageZoom from './components/ImageSection';
-import { usePrefix } from './context/PrefixContext';
-
+import PrefixedImage from './components/PrefixedImage';
 export default function InvitationPage() {
-  const prefix = usePrefix();
-
   const photos = [
     {
-      src: '',
-      caption: '',
+      src: 'https://cloud.bojagicard.com/scene/si/sinyu999/dfc45045965aac0b4fbc55c4cf41bd49.jpg',
+      topCaption: '',
+      bottomCaption: '',
     },
     {
       src: '',
-      caption: `${'<div class="text-center space-y-2 leading-relaxed"><p>함께할 날이 많아졌다는 사실에</p><p>하루하루가 고맙고 설렙니다.</p><p>친구처럼 서로를 아끼며 걸어가려 합니다.</p><p>저희의 진심 어린 시작,</p><p>얼마나 서로 좋아하는지,</p><p>오셔서 따뜻한 마음으로 봐주세요.</p></div><div class="mt-10 text-base text-center space-y-1"><p><span class="mx-1 text-gray-500">아들</span><span class="font-bold">박현규</span></p><p><span class="mx-1 text-gray-500">딸</span><span class="font-bold">신유진</span></p></div>'}`,
+      topCaption: `${'<p>함께할 날이 많아졌다는 사실에</p><p>하루하루가 고맙고 설렙니다.</p><p>친구처럼 서로를 아끼며 걸어가려 합니다.</p><p>저희의 진심 어린 시작,</p><p>얼마나 서로 좋아하는지,</p><p>오셔서 따뜻한 마음으로 봐주세요.</p>'}`,
+      bottomCaption: `${'아들 <span class="font-bold">박현규</span> 딸 <span class="font-bold">신유진</span>'}`,
     },
   ];
 
@@ -87,43 +86,28 @@ export default function InvitationPage() {
               style={{
                 position: 'relative',
                 width: '100%',
-                maxWidth: 480,
+                maxWidth: 640,
                 margin: '0 auto',
               }}
             >
               {/* 캡션 표기 */}
-              {photo.caption && photo.caption.trim() !== '' ? (
+              {photo.topCaption && photo.topCaption.trim() !== '' ? (
                 <div
                   id="scene_slider"
                   className="relative w-full aspect-[799/1400] justify-center items-center flex flex-col pt-30"
                 >
                   {/* 위쪽 문구 */}
                   <div
-                    className="max-w-[300px] mx-auto text-ml text-center mb-3 w-full"
+                    className="text-center leading-loose mb-6"
                     dangerouslySetInnerHTML={{
-                      __html: `
-                      <div class="text-center space-y-1 leading-relaxed">
-                        <p>하나뿐인 현규와 유진이의</p>
-                        <p>소중한 날에 초대합니다.</p>
-                        <p>함께할 날이 많아졌다는 사실에</p>
-                        <p>하루하루가 고맙고 설렙니다.</p>
-                        <p>친구처럼 서로를 아끼며 걸어가려 합니다.</p>                                                                          
-                        <p>저희의 진심 어린 시작,</p>
-                        <p>얼마나 서로 좋아하는지,</p>
-                        <p>오셔서 따뜻한 마음으로 봐주세요.</p>
-                      </div>
-                    `,
+                      __html: photo.topCaption,
                     }}
                   />
                   {/* 아래쪽 가족소개 */}
                   <div
-                    className="max-w-[300px] mx-auto text-base text-center"
+                    className="flex gap-x-2 space-x-5"
                     dangerouslySetInnerHTML={{
-                      __html: `
-                      <div>
-                        <p>아들 <span class="font-bold">박현규</span> 딸 <span class="font-bold">신유진</span></p>
-                      </div>
-                    `,
+                      __html: photo.bottomCaption,
                     }}
                   />
                 </div>
@@ -135,7 +119,7 @@ export default function InvitationPage() {
                 >
                   <Image
                     className="object-cover blur-none block"
-                    src="https://cloud.bojagicard.com/scene/si/sinyu999/dfc45045965aac0b4fbc55c4cf41bd49.jpg"
+                    src={photo.src}
                     alt="슬라이드 이미지"
                     fill
                     unoptimized
@@ -147,10 +131,10 @@ export default function InvitationPage() {
               )}
 
               {/* 스킨 PNG (반투명 오버레이 등) */}
-              <Image
+              <PrefixedImage
                 className="absolute inset-0 object-cover"
                 id="skin_png"
-                src={`${prefix}/103.png`}
+                src="/103.png"
                 alt="스킨 PNG"
                 fill
                 priority={false}
@@ -159,9 +143,9 @@ export default function InvitationPage() {
                 sizes="(max-width: 480px) 100vw, 480px"
               />
               {/* 스킨 인포 (정보 오버레이) */}
-              <Image
+              <PrefixedImage
                 id="skin_info"
-                src={`${prefix}/skin_info.png`}
+                src="/skin_info.png"
                 alt="스킨 인포"
                 fill
                 className="absolute inset-0 z-20"
@@ -178,23 +162,7 @@ export default function InvitationPage() {
           ) : (
             // ...existing code...
             <div className="w-full h-full flex flex-col items-center min-h-0">
-              <div
-                className="relative w-full max-w-lg mx-auto overflow-hidden flex-shrink"
-                style={{
-                  aspectRatio: '799/1400',
-                  maxHeight: '100vh',
-                  minHeight: '120px',
-                }}
-              >
-                <ImageZoom />
-                {/* <Image
-                  src={withPrefix('/photo4.jpg')}
-                  alt="오시는 길"
-                  fill
-                  unoptimized
-                  className="object-contain"
-                /> */}
-              </div>
+              <ImageZoom />
               <div className="w-full max-w-sm mx-auto py-5 flex-shrink-0">
                 <h1
                   className="text-sm mb-4 text-center"
@@ -269,7 +237,7 @@ export default function InvitationPage() {
           type="button"
         >
           <svg width={32} height={32} fill="none" viewBox="0 0 24 24">
-            <path d="M12 16l-6-6h12l-6 6z" fill="#b45309" />
+            <path d="M12 16l-6-6h12l-6 6z" fill="#091c46" />
           </svg>
         </button>
       )}
