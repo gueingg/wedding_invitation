@@ -9,8 +9,8 @@ body {
 }
 @font-face {
     font-family: 'Cafe24Font';
-    src: url('/fonts/Cafe24SsrroundAir-v1.1.woff') format('woff'),
-       url('/fonts/Cafe24SsrroundAir-v1.1.woff2') format('woff2');
+    src: url('/fonts/Cafe24SsurroundAir-v1.1.woff2') format('woff2'),
+       url('/fonts/Cafe24SsurroundAir-v1.1.woff') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;

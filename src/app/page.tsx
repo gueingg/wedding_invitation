@@ -3,20 +3,22 @@ import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import ImageZoom from './components/ImageSection';
 import PrefixedImage from './components/PrefixedImage';
-export default function InvitationPage() {
-  const photos = [
-    {
-      src: 'https://cloud.bojagicard.com/scene/si/sinyu999/dfc45045965aac0b4fbc55c4cf41bd49.jpg',
-      topCaption: '',
-      bottomCaption: '',
-    },
-    {
-      src: '',
-      topCaption: `${'<p>함께할 날이 많아졌다는 사실에</p><p>하루하루가 고맙고 설렙니다.</p><p>친구처럼 서로를 아끼며 걸어가려 합니다.</p><p>저희의 진심 어린 시작,</p><p>얼마나 서로 좋아하는지,</p><p>오셔서 따뜻한 마음으로 봐주세요.</p>'}`,
-      bottomCaption: `${'아들 <span class="font-bold">박현규</span> 딸 <span class="font-bold">신유진</span>'}`,
-    },
-  ];
 
+const photos = [
+  {
+    src: 'https://cloud.bojagicard.com/scene/si/sinyu999/dfc45045965aac0b4fbc55c4cf41bd49.jpg',
+    topCaption: '',
+    bottomCaption: '',
+  },
+  {
+    src: '',
+    topCaption:
+      '<p>함께할 날이 많아졌다는 사실에</p><p>하루하루가 고맙고 설렙니다.</p><p>친구처럼 서로를 아끼며 걸어가려 합니다.</p><p>저희의 진심 어린 시작,</p><p>얼마나 서로 좋아하는지,</p><p>오셔서 따뜻한 마음으로 봐주세요.</p>',
+    bottomCaption: '아들 <span class="font-bold">박현규</span> 딸 <span class="font-bold">신유진</span>',
+  },
+];
+
+export default function InvitationPage() {
   const [current, setCurrent] = useState(0);
 
   // 슬라이드 이동 함수 (중복 방지)
@@ -28,8 +30,9 @@ export default function InvitationPage() {
   // 휠/키보드/스와이프 이벤트
   useEffect(() => {
     const onWheel = (e: WheelEvent) => {
-      if (e.deltaY > 0 && current < photos.length) goTo(current + 1);
-      if (e.deltaY < 0 && current > 0) goTo(current - 1);
+      e.preventDefault();
+      if (e.deltaY > 0) goTo(current + 1);
+      if (e.deltaY < 0) goTo(current - 1);
     };
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowDown' || e.key === 'ArrowRight') goTo(current + 1);
@@ -39,23 +42,28 @@ export default function InvitationPage() {
     const onTouchStart = (e: TouchEvent) => {
       startY = e.touches[0].clientY;
     };
+    const onTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
+    };
     const onTouchEnd = (e: TouchEvent) => {
       const endY = e.changedTouches[0].clientY;
-      if (startY - endY > 50 && current < photos.length) goTo(current + 1);
-      if (endY - startY > 50 && current > 0) goTo(current - 1);
+      if (startY - endY > 50) goTo(current + 1);
+      if (endY - startY > 50) goTo(current - 1);
     };
 
     window.addEventListener('wheel', onWheel, { passive: false });
     window.addEventListener('keydown', onKeyDown);
-    window.addEventListener('touchstart', onTouchStart);
-    window.addEventListener('touchend', onTouchEnd);
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: false });
+    window.addEventListener('touchend', onTouchEnd, { passive: true });
     return () => {
       window.removeEventListener('wheel', onWheel);
       window.removeEventListener('keydown', onKeyDown);
       window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchmove', onTouchMove);
       window.removeEventListener('touchend', onTouchEnd);
     };
-  }, [current, goTo, photos.length]);
+  }, [current, goTo]);
 
   return (
     <main className="relative w-full min-h-[100dvh] overflow-hidden bg-zinc-50">
@@ -73,6 +81,7 @@ export default function InvitationPage() {
           `}
           style={{
             pointerEvents: current === idx ? 'auto' : 'none',
+            willChange: 'opacity, transform',
             background:
               'isInfo' in photo && photo.isInfo
                 ? 'rgba(255,255,255,0.95)'
