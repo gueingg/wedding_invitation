@@ -2,16 +2,19 @@
 
 html,
 body {
-    scroll-behavior: smooth;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  scroll-behavior: smooth;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  /* 모바일 탭 하이라이트 제거 */
+  -webkit-tap-highlight-color: transparent;
 }
+
 @font-face {
-    font-family: 'Cafe24Font';
-    src: url('/fonts/Cafe24SsurroundAir-v1.1.woff2') format('woff2'),
-       url('/fonts/Cafe24SsurroundAir-v1.1.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Cafe24Font';
+  src: url('/fonts/Cafe24SsurroundAir-v1.1.woff2') format('woff2'),
+    url('/fonts/Cafe24SsurroundAir-v1.1.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
